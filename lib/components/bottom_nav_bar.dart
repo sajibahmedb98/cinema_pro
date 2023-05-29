@@ -13,16 +13,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric( vertical: 10) ,
       decoration: BoxDecoration(
         color: Colors.grey[300],
       ),
-      child:  SafeArea(
-        child:  GNav(
-          
+      child: SafeArea(
+        child: GNav(
           // tabBorder: Border.all(color: Colors.grey, width: 1),
-          gap: 8,
+          gap: 10,
           activeColor: Colors.black,
-          tabBackgroundColor: Colors.grey.shade400,
+          tabBackgroundColor: Colors.blue.shade300,
+          tabBorderRadius: 100,
+          iconSize: 30,
+
+          
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 15,
@@ -31,6 +35,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             GButton(
               icon: LineIcons.home,
               text: 'Home',
+              // iconColor: Colors.white,
             ),
             GButton(
               icon: LineIcons.search,
@@ -44,7 +49,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: LineIcons.user,
               text: 'Account',
             ),
-            
           ],
         ),
       ),
