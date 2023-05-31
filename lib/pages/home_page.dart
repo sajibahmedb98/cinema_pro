@@ -1,5 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cinema_pro/components/app_bar.dart';
 import 'package:cinema_pro/components/bottom_nav_bar.dart';
+import 'package:cinema_pro/components/bottom_sheet.dart';
+import 'package:cinema_pro/components/my_tab_bar.dart';
+import 'package:cinema_pro/components/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -43,52 +47,46 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            //appbar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  //drawer icon
-                  const Icon(LineIcons.bars),
+            //app bar
+            const MyAppBar(),
 
-                  //title text
-                  const Text(
-                    'Cinema Pro',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            const SizedBox(height: 10),
 
-                  //user profile picture
-                  SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: Image.asset(
-                      'lib/assets/user.png',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
+            //search field
+            const SearchField(),
+
+            //category tab bar
+            const MyTabBar(),
+
             CarouselSlider.builder(
+              itemCount: urlImages.length,
               options: CarouselOptions(
-                height: 350,
+                height: 320,
                 // autoPlay: true,
                 // autoPlayAnimationDuration: const Duration(milliseconds: 500),
                 enlargeCenterPage: true,
                 viewportFraction: 0.6,
                 enlargeFactor: 0.2,
               ),
-              itemCount: urlImages.length,
               itemBuilder: (context, index, realindex) {
                 final urlImage = urlImages[index];
                 return buildImage(urlImage, index);
               },
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('We Recommend'),
+                  Row(
+                    children: [
+                      Icon(LineIcons.angleLeft),
+                      Icon(LineIcons.angleRight),
+                    ],
+                  )
+                ],
+              ),
             )
           ],
         ),
