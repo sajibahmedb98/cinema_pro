@@ -12,24 +12,15 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-      ),
-      child: SafeArea(
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: GNav(
           gap: 10,
-          activeColor: Colors.white,
-          tabBackgroundColor: Colors.blue.shade300,
+          // activeColor: Colors.white,
+          tabBackgroundColor: Colors.blue.shade400,
           tabBorderRadius: 100,
           iconSize: 30,
-          tabShadow: [
-            BoxShadow(
-              color: Colors.blue.withOpacity(0.5),
-              blurRadius: 8,
-            )
-          ],
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 15,

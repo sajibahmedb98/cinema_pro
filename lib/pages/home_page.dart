@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema_pro/components/app_bar.dart';
 import 'package:cinema_pro/components/bottom_nav_bar.dart';
-import 'package:cinema_pro/components/bottom_sheet.dart';
 import 'package:cinema_pro/components/my_tab_bar.dart';
+import 'package:cinema_pro/components/recommend.dart';
 import 'package:cinema_pro/components/search_field.dart';
+import 'package:cinema_pro/widgets/build_image.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -45,131 +46,91 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child: Column(
-          children: [
-            //app bar
-            const MyAppBar(),
+        bottom: false,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //app bar
+              const MyAppBar(),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            //search field
-            const SearchField(),
+              //search field
+              const SearchField(),
 
-            //category tab bar
-            const MyTabBar(),
+              //category tab bar
+              const MyTabBar(),
 
-            CarouselSlider.builder(
-              itemCount: urlImages.length,
-              options: CarouselOptions(
-                height: 320,
-                // autoPlay: true,
-                // autoPlayAnimationDuration: const Duration(milliseconds: 500),
-                enlargeCenterPage: true,
-                viewportFraction: 0.6,
-                enlargeFactor: 0.2,
+              CarouselSlider.builder(
+                itemCount: urlImages.length,
+                options: CarouselOptions(
+                  height: 320,
+                  // autoPlay: true,
+                  // autoPlayAnimationDuration: const Duration(milliseconds: 500),
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.6,
+                  enlargeFactor: 0.2,
+                ),
+                itemBuilder: (context, index, realindex) {
+                  final urlImage = urlImages[index];
+                  return buildImage(urlImage, index);
+                },
               ),
-              itemBuilder: (context, index, realindex) {
-                final urlImage = urlImages[index];
-                return buildImage(urlImage, index);
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('We Recommend'),
-                  Row(
-                    children: [
-                      Icon(LineIcons.angleLeft),
-                      Icon(LineIcons.angleRight),
-                    ],
-                  )
-                ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'We Recommend',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(
+                              color: Colors.grey.shade400,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              LineIcons.angleLeft,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              LineIcons.angleRight,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            )
-          ],
+              const RecommendSection()
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const BottomNavBar(),
     );
-  }
-
-  Widget buildImage(String urlImage, int index) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        // margin: const EdgeInsets.symmetric(horizontal: 5),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                urlImage,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Icon(
-                        LineIcons.starAlt,
-                        color: Colors.yellow,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black,
-                            blurRadius: 20,
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        ratigs[index],
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 15,
-                  ),
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    names[index],
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black,
-                          blurRadius: 20,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ));
   }
 }
